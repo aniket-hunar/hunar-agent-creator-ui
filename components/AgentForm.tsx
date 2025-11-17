@@ -26,7 +26,7 @@ const LoadingSpinner: React.FC = () => (
 // You will get this URL after deploying the backend service from the `/functions` directory.
 // See the new README.md file for deployment instructions.
 // =================================================================================
-const backendApiUrl = 'https://YOUR_CLOUD_FUNCTION_URL_HERE';
+const backendApiUrl = 'https://hunar-agent-creator-service-1015824351504.asia-south1.run.app';
 
 
 const ConfigurationNeeded: React.FC = () => (
@@ -69,7 +69,7 @@ const AgentForm: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     
-    if (backendApiUrl.includes('YOUR_CLOUD_FUNCTION_URL_HERE')) {
+    if (backendApiUrl.includes('https://hunar-agent-creator-service-1015824351504.asia-south1.run.app')) {
         return <ConfigurationNeeded />;
     }
 
