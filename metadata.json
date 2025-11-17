@@ -1,0 +1,5 @@
+{
+  "name": "Hunar AI Agent Creator",
+  "description": "A simple, password-protected UI to create and configure Sales Qualification Agents for the Hunar AI Voice API. Enter agent details, provide an API key, and generate a new agent with a single click.",
+  "requestFramePermissions": []
+}
