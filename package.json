@@ -1,0 +1,12 @@
+{
+  "name": "hunar-agent-creator-ui",
+  "version": "1.0.0",
+  "description": "Frontend for the Hunar AI Agent Creator.",
+  "private": true,
+  "scripts": {
+    "start": "serve -s ."
+  },
+  "dependencies": {
+    "serve": "^14.2.3"
+  }
+}
