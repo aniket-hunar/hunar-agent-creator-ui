@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && functions-framework --target=createAgent",
+    "start": "functions-framework --target=createAgent",
     "predeploy": "npm run build",
     "deploy:functions": "gcloud functions deploy createAgent --runtime nodejs20 --trigger-http --allow-unauthenticated",
     "deploy:run": "gcloud run deploy hunar-agent-creator-service --source . --platform managed --allow-unauthenticated"
