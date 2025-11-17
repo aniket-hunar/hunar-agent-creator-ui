@@ -6,6 +6,7 @@ const app = express();
 
 // Use CORS to allow requests from your frontend's origin
 app.use(cors({ origin: true }));
+// Fix: The express.json() middleware must be invoked as a function to be correctly applied.
 app.use(express.json());
 
 const HUNAR_API_URL = 'https://api.voice.hunar.ai/external/v1/agents/';
