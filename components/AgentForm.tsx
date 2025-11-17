@@ -20,6 +20,39 @@ const LoadingSpinner: React.FC = () => (
     </svg>
 );
 
+// =================================================================================
+// !! IMPORTANT !!
+// Replace this URL with the actual trigger URL of your deployed Google Cloud Function.
+// You will get this URL after deploying the backend service from the `/functions` directory.
+// See the new README.md file for deployment instructions.
+// =================================================================================
+const backendApiUrl = 'https://YOUR_CLOUD_FUNCTION_URL_HERE';
+
+
+const ConfigurationNeeded: React.FC = () => (
+    <div className="w-full max-w-4xl mx-auto">
+        <div className="bg-slate-800 shadow-2xl rounded-lg p-8 border border-amber-500/30">
+            <div className="flex">
+                <div className="flex-shrink-0">
+                    <svg className="h-6 w-6 text-amber-400" xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                </div>
+                <div className="ml-4">
+                    <h3 className="text-lg font-bold text-amber-300">Configuration Required</h3>
+                    <div className="mt-2 text-md text-slate-300">
+                        <p>To use this application, you must first deploy the secure backend service.</p>
+                        <p className="mt-3">
+                            Please follow the instructions in the <code className="bg-slate-900 text-sky-300 px-1 py-0.5 rounded-sm font-semibold">README.md</code> file, then paste your unique URL into the <code className="bg-slate-900 text-sky-300 px-1 py-0.5 rounded-sm font-semibold">backendApiUrl</code> variable in the file <code className="bg-slate-900 text-sky-300 px-1 py-0.5 rounded-sm font-semibold">components/AgentForm.tsx</code>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+
 const AgentForm: React.FC = () => {
     const [agentData, setAgentData] = useState<Omit<AgentData, 'result_prompt' | 'result_schema'>>({
         name: "Sales Qualification Agent",
@@ -35,6 +68,10 @@ const AgentForm: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    
+    if (backendApiUrl.includes('YOUR_CLOUD_FUNCTION_URL_HERE')) {
+        return <ConfigurationNeeded />;
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -319,20 +356,6 @@ Before submitting evaluation, ensure:
         
         // Remove empty optional fields
         if (!payload.persona_name) delete payload.persona_name;
-
-        // =================================================================================
-        // !! IMPORTANT !!
-        // Replace this URL with the actual trigger URL of your deployed Google Cloud Function.
-        // You will get this URL after deploying the function from the `/functions` directory.
-        // See the new README.md file for deployment instructions.
-        // =================================================================================
-        const backendApiUrl = 'https://YOUR_CLOUD_FUNCTION_URL_HERE'; 
-
-        if (backendApiUrl.includes('YOUR_CLOUD_FUNCTION_URL_HERE')) {
-             setError("Please update the backend API URL in components/AgentForm.tsx before proceeding.");
-             setIsLoading(false);
-             return;
-        }
 
         try {
             const response = await fetch(backendApiUrl, {
